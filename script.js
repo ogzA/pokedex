@@ -16,5 +16,13 @@ async function getData() {
 
 	const result = await response.json();
 
-	console.log(result.results);
+	/* 	console.log(result.results);
+	 */
+	const mainPkmResults = result.results;
+
+	console.log(mainPkmResults);
+
+	mainPkmResults.map((pkmData) => {
+		console.log(pkmData);
+	});
 }
