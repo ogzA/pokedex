@@ -1,6 +1,10 @@
 const allPokemons = [];
 const MAIN_PKM_URL = "https://pokeapi.co/api/v2/pokemon/";
 
+const POKEMON_CONTAINER = document.getElementById("pokemon-container");
+
+console.log(POKEMON_CONTAINER);
+
 function init() {
 	getData();
 }
@@ -16,8 +20,6 @@ async function getData() {
 
 	const result = await response.json();
 
-	/* 	console.log(result.results);
-	 */
 	const mainPkmResults = result.results;
 
 	console.log(mainPkmResults);

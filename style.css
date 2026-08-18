@@ -8,3 +8,16 @@ html {
 body {
 	background-color: bisque;
 }
+
+.pokemon-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+
+	.pokemon-card {
+		background-color: blueviolet;
+		width: 250px;
+		height: 250px;
+	}
+}
