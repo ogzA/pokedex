@@ -22,7 +22,7 @@ function render() {
 async function getData() {
 	const response = await fetch(MAIN_PKM_URL);
 	const result = await response.json();
-	const PokemonResults = await result.results;
+	const PokemonResults = result.results;
 
 	allPokemons.push(...PokemonResults);
 
