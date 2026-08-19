@@ -3,8 +3,20 @@ const MAIN_PKM_URL = "https://pokeapi.co/api/v2/pokemon/";
 const POKEMON_CONTAINER = document.getElementById("pokemon-container");
 
 async function init() {
-	await getData();
-	render();
+	try {
+		await getData();
+		render();
+	} catch (error) {
+		console.log(error);
+
+		POKEMON_CONTAINER.innerHTML = pokemonLoadErrorMessage();
+	}
+}
+
+function pokemonLoadErrorMessage() {
+	return /*html*/ `
+		<p class="error">Pokémon could not be loaded. Please try again later.</p>
+	`;
 }
 
 function render() {
@@ -20,20 +32,23 @@ function render() {
 	POKEMON_CONTAINER.innerHTML = cardsHTML.join("");
 }
 
-async function getData() {
-	const response = await fetch(MAIN_PKM_URL);
+async function fetchJson(url) {
+	const response = await fetch(url);
 
 	if (!response.ok) {
 		throw new Error(`Response status: ${response.status}`);
 	}
-	const result = await response.json();
-	const PokemonResults = result.results;
 
-	const detailsPromises = PokemonResults.map((pokemon) => {
-		return fetch(pokemon.url).then((res) => res.json());
-	});
+	return await response.json();
+}
 
-	const pokemonDetails = await Promise.all(detailsPromises);
+async function fetchPokemonDetails(pokemonList) {
+	const detailPromises = pokemonList.map((pokemon) => fetchJson(pokemon.url));
+	return await Promise.all(detailPromises);
+}
 
-	allPokemons.push(...pokemonDetails);
+async function getData() {
+	const result = await fetchJson(MAIN_PKM_URL);
+	const details = await fetchPokemonDetails(result.results);
+	allPokemons.push(...details);
 }
