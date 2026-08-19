@@ -21,12 +21,12 @@ function render() {
 
 async function getData() {
 	const response = await fetch(MAIN_PKM_URL);
-	const result = await response.json();
-	const PokemonResults = result.results;
-
-	allPokemons.push(...PokemonResults);
 
 	if (!response.ok) {
 		throw new Error(`Response status: ${response.status}`);
 	}
+	const result = await response.json();
+	const PokemonResults = result.results;
+
+	allPokemons.push(...PokemonResults);
 }
