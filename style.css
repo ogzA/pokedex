@@ -14,6 +14,7 @@ body {
 	justify-content: center;
 	align-items: center;
 	gap: 20px;
+	flex-wrap: wrap;
 
 	.pokemon-card {
 		background-color: blueviolet;
