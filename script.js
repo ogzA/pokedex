@@ -23,8 +23,21 @@ function render() {
 	const cardsHTML = allPokemons.map((pokemon) => {
 		return /*html*/ `
 			<article class="pokemon-card">
+				<span class="pokemon-id">#${pokemon.id}</span>
+				<img
+					src="${pokemon.sprites.other["official-artwork"].front_default}"
+					alt="${pokemon.name}"
+				/>
+
 				<h2>${pokemon.name}</h2>
-				<div>${pokemon.base_experience}</div>
+
+				<div class="pokemon-types">
+					${renderTypes(pokemon.types)}
+				</div>
+
+				<ul class="pokemon-stats">
+					${renderStats(pokemon.stats)}
+				</ul>
 			</article>
 		`;
 	});
@@ -51,4 +64,29 @@ async function getData() {
 	const result = await fetchJson(MAIN_PKM_URL);
 	const details = await fetchPokemonDetails(result.results);
 	allPokemons.push(...details);
+}
+
+function renderTypes(types) {
+	return types
+		.map((typeInfo) => {
+			return /*html*/ `
+				<span class="type-badge type-${typeInfo.type.name}">
+					${typeInfo.type.name}
+				</span>
+			`;
+		})
+		.join("");
+}
+
+function renderStats(stats) {
+	return stats
+		.map((statInfo) => {
+			return /*html*/ `
+				<li>
+					<span class="stat-name">${statInfo.stat.name}</span>
+					<span class="stat-value">${statInfo.base_stat}</span>
+				</li>
+			`;
+		})
+		.join("");
 }

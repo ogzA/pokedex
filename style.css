@@ -3,6 +3,7 @@
 body,
 html {
 	height: 100%;
+	font-size: 16px;
 }
 
 body {
@@ -18,7 +19,18 @@ body {
 
 	.pokemon-card {
 		background-color: blueviolet;
-		width: 250px;
-		height: 250px;
+		padding: 1rem;
+		font-size: 1rem;
+
+		img {
+			width: 250px;
+		}
 	}
+}
+
+button {
+	padding: 1rem;
+	background-color: black;
+	color: white;
+	cursor: pointer;
 }
