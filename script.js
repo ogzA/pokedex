@@ -12,6 +12,7 @@ function render() {
 		return /*html*/ `
 			<article class="pokemon-card">
 				<h2>${pokemon.name}</h2>
+				<div>${pokemon.base_experience}</div>
 			</article>
 		`;
 	});
@@ -28,5 +29,11 @@ async function getData() {
 	const result = await response.json();
 	const PokemonResults = result.results;
 
-	allPokemons.push(...PokemonResults);
+	const detailsPromises = PokemonResults.map((pokemon) => {
+		return fetch(pokemon.url).then((res) => res.json());
+	});
+
+	const pokemonDetails = await Promise.all(detailsPromises);
+
+	allPokemons.push(...pokemonDetails);
 }
