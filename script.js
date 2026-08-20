@@ -99,7 +99,6 @@ function renderStats(stats) {
 		})
 		.join("");
 }
-function searchPokemon() {}
 
 function pokemonCardTemplate(pokemon) {
 	return /*html*/ `
