@@ -2,6 +2,8 @@ const allPokemons = [];
 const MAIN_PKM_URL = "https://pokeapi.co/api/v2/pokemon/";
 const POKEMON_CONTAINER_REF = document.getElementById("pokemon-container");
 const SEARCH_INPUT_REF = document.getElementById("search-input");
+const SEARCH_HINT_REF = document.getElementById("search-hint");
+const MIN_SEARCH_LENGTH = 3;
 let searchTerm = "";
 
 async function init() {
@@ -19,11 +21,20 @@ async function init() {
 
 function handleSearch(event) {
 	searchTerm = event.target.value.trim().toLowerCase();
+	renderSearchHint();
 	render();
 }
 
+function renderSearchHint() {
+	const isTooShort =
+		searchTerm.length > 0 && searchTerm.length < MIN_SEARCH_LENGTH;
+	SEARCH_HINT_REF.textContent = isTooShort
+		? "Type at least 3 characters"
+		: "";
+}
+
 function getVisiblePokemons() {
-	if (searchTerm.length < 3) {
+	if (!isSearchActive()) {
 		return allPokemons;
 	}
 
@@ -42,11 +53,16 @@ function noResultsMessage() {
 	`;
 }
 
+function isSearchActive() {
+	return searchTerm.length >= MIN_SEARCH_LENGTH;
+}
+
 function render() {
 	const visiblePokemons = getVisiblePokemons();
 
-	if (visiblePokemons.length === 0) {
+	if (isSearchActive() && visiblePokemons.length === 0) {
 		POKEMON_CONTAINER_REF.innerHTML = noResultsMessage();
+		return;
 	}
 
 	POKEMON_CONTAINER_REF.innerHTML = visiblePokemons

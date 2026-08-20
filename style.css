@@ -14,6 +14,11 @@ header {
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
+
+	.search-container {
+		min-height: 100px;
+		width: 25%;
+	}
 }
 
 .pokemon-container {
