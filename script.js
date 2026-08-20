@@ -5,7 +5,7 @@ const SEARCH_INPUT_REF = document.getElementById("search-input");
 let searchTerm = "";
 
 async function init() {
-	SEARCH_INPUT_REF.addEventListener("input", handeSearch);
+	SEARCH_INPUT_REF.addEventListener("input", handleSearch);
 
 	try {
 		await getData();
@@ -17,7 +17,7 @@ async function init() {
 	}
 }
 
-function handeSearch(event) {
+function handleSearch(event) {
 	searchTerm = event.target.value;
 	console.log(searchTerm);
 }
