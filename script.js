@@ -1,16 +1,25 @@
 const allPokemons = [];
 const MAIN_PKM_URL = "https://pokeapi.co/api/v2/pokemon/";
-const POKEMON_CONTAINER = document.getElementById("pokemon-container");
+const POKEMON_CONTAINER_REF = document.getElementById("pokemon-container");
+const SEARCH_INPUT_REF = document.getElementById("search-input");
+let searchTerm = "";
 
 async function init() {
+	SEARCH_INPUT_REF.addEventListener("input", handeSearch);
+
 	try {
 		await getData();
 		render();
 	} catch (error) {
 		console.log(error);
 
-		POKEMON_CONTAINER.innerHTML = pokemonLoadErrorMessage();
+		POKEMON_CONTAINER_REF.innerHTML = pokemonLoadErrorMessage();
 	}
+}
+
+function handeSearch(event) {
+	searchTerm = event.target.value;
+	console.log(searchTerm);
 }
 
 function pokemonLoadErrorMessage() {
@@ -42,7 +51,7 @@ function render() {
 		`;
 	});
 
-	POKEMON_CONTAINER.innerHTML = cardsHTML.join("");
+	POKEMON_CONTAINER_REF.innerHTML = cardsHTML.join("");
 }
 
 async function fetchJson(url) {
@@ -90,3 +99,4 @@ function renderStats(stats) {
 		})
 		.join("");
 }
+function searchPokemon() {}
