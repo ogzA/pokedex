@@ -10,6 +10,12 @@ body {
 	background-color: bisque;
 }
 
+header {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
 .pokemon-container {
 	display: flex;
 	justify-content: center;
