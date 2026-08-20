@@ -18,8 +18,16 @@ async function init() {
 }
 
 function handleSearch(event) {
-	searchTerm = event.target.value;
-	console.log(searchTerm);
+	searchTerm = event.target.value.trim().toLowerCase();
+	render();
+}
+
+function getVisiblePokemons() {
+	if (searchTerm.length < 3) {
+		return allPokemons;
+	}
+
+	return allPokemons.filter((pokemon) => pokemon.name.includes(searchTerm));
 }
 
 function pokemonLoadErrorMessage() {
@@ -28,30 +36,22 @@ function pokemonLoadErrorMessage() {
 	`;
 }
 
+function noResultsMessage() {
+	return /*html*/ `
+		<p class="no-results">No Pokémon matched "${searchTerm}".</p>
+	`;
+}
+
 function render() {
-	const cardsHTML = allPokemons.map((pokemon) => {
-		return /*html*/ `
-			<article class="pokemon-card">
-				<span class="pokemon-id">#${pokemon.id}</span>
-				<img
-					src="${pokemon.sprites.other["official-artwork"].front_default}"
-					alt="${pokemon.name}"
-				/>
+	const visiblePokemons = getVisiblePokemons();
 
-				<h2>${pokemon.name}</h2>
+	if (visiblePokemons.length === 0) {
+		POKEMON_CONTAINER_REF.innerHTML = noResultsMessage();
+	}
 
-				<div class="pokemon-types">
-					${renderTypes(pokemon.types)}
-				</div>
-
-				<ul class="pokemon-stats">
-					${renderStats(pokemon.stats)}
-				</ul>
-			</article>
-		`;
-	});
-
-	POKEMON_CONTAINER_REF.innerHTML = cardsHTML.join("");
+	POKEMON_CONTAINER_REF.innerHTML = visiblePokemons
+		.map(pokemonCardTemplate)
+		.join("");
 }
 
 async function fetchJson(url) {
@@ -100,3 +100,25 @@ function renderStats(stats) {
 		.join("");
 }
 function searchPokemon() {}
+
+function pokemonCardTemplate(pokemon) {
+	return /*html*/ `
+			<article class="pokemon-card">
+				<span class="pokemon-id">#${pokemon.id}</span>
+				<img
+					src="${pokemon.sprites.other["official-artwork"].front_default}"
+					alt="${pokemon.name}"
+				/>
+
+				<h2>${pokemon.name}</h2>
+
+				<div class="pokemon-types">
+					${renderTypes(pokemon.types)}
+				</div>
+
+				<ul class="pokemon-stats">
+					${renderStats(pokemon.stats)}
+				</ul>
+			</article>
+		`;
+}
