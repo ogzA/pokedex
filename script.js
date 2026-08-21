@@ -82,7 +82,7 @@ async function fetchJson(url) {
 
 async function fetchPokemonDetails(pokemonList) {
 	const detailPromises = pokemonList.map((pokemon) => fetchJson(pokemon.url));
-	return await Promise.all(detailPromises);
+	return Promise.all(detailPromises);
 }
 
 async function getData() {
