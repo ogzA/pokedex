@@ -9,6 +9,9 @@ let searchTerm = "";
 async function init() {
 	SEARCH_INPUT_REF.addEventListener("input", handleSearch);
 
+	loadPokemons();
+}
+
 	try {
 		await getData();
 		render();
