@@ -77,7 +77,7 @@ async function fetchJson(url) {
 		throw new Error(`Response status: ${response.status}`);
 	}
 
-	return await response.json();
+	return response.json();
 }
 
 async function fetchPokemonDetails(pokemonList) {
