@@ -3,8 +3,14 @@ const MAIN_PKM_URL = "https://pokeapi.co/api/v2/pokemon/";
 const POKEMON_CONTAINER_REF = document.getElementById("pokemon-container");
 const SEARCH_INPUT_REF = document.getElementById("search-input");
 const SEARCH_HINT_REF = document.getElementById("search-hint");
+const LOAD_MORE_BTN_REF = document.getElementById("load-more-btn");
+const LOADING_REF = document.getElementById("loading");
+const ERROR_REF = document.getElementById("error-message");
 const MIN_SEARCH_LENGTH = 3;
+const LIMIT = 20;
 let searchTerm = "";
+let isLoading = false;
+let hasMore = true;
 
 async function init() {
 	SEARCH_INPUT_REF.addEventListener("input", handleSearch);
@@ -12,14 +18,34 @@ async function init() {
 	loadPokemons();
 }
 
+async function loadPokemons() {
+	console.log("test1");
+	if (isLoading) return;
+	console.log("testw2");
+	setLoading(true);
+
 	try {
-		await getData();
+		hasMore = await getData();
 		render();
 	} catch (error) {
-		console.log(error);
+		console.error(error);
+		showLoadError();
 
 		POKEMON_CONTAINER_REF.innerHTML = pokemonLoadErrorMessage();
+	} finally {
+		setLoading(false);
 	}
+}
+
+function setLoading(value) {
+	isLoading = value;
+	renderLoadingState();
+}
+
+function renderLoadingState() {
+	LOADING_REF.classList.toggle("d-none", !isLoading);
+	LOAD_MORE_BTN_REF.disabled = isLoading;
+	LOAD_MORE_BTN_REF.classList.toggle("d-none", !hasMore);
 }
 
 function handleSearch(event) {
@@ -89,9 +115,13 @@ async function fetchPokemonDetails(pokemonList) {
 }
 
 async function getData() {
-	const result = await fetchJson(MAIN_PKM_URL);
+	const result = await fetchJson(
+		`${MAIN_PKM_URL}?offset=${allPokemons.length}&limit=${LIMIT}`,
+	);
 	const details = await fetchPokemonDetails(result.results);
 	allPokemons.push(...details);
+
+	return result.next !== null;
 }
 
 function renderTypes(types) {
@@ -139,4 +169,12 @@ function pokemonCardTemplate(pokemon) {
 				</ul>
 			</article>
 		`;
+}
+
+function showLoadError() {
+	if (allPokemons.length === 0) {
+		POKEMON_CONTAINER_REF.innerHTML = pokemonLoadErrorMessage();
+		return;
+	}
+	ERROR_REF.textContent = "Could not load more Pokémon. Please try again.";
 }
