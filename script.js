@@ -24,14 +24,14 @@ async function loadPokemons() {
 	console.log("testw2");
 	setLoading(true);
 
+	ERROR_REF.textContent = "";
+
 	try {
 		hasMore = await getData();
 		render();
 	} catch (error) {
 		console.error(error);
 		showLoadError();
-
-		POKEMON_CONTAINER_REF.innerHTML = pokemonLoadErrorMessage();
 	} finally {
 		setLoading(false);
 	}
