@@ -14,6 +14,7 @@ let hasMore = true;
 
 async function init() {
 	SEARCH_INPUT_REF.addEventListener("input", handleSearch);
+	LOAD_MORE_BTN_REF.addEventListener("click", loadPokemons);
 
 	loadPokemons();
 }
