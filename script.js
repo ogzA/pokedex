@@ -77,7 +77,7 @@ function pokemonLoadErrorMessage() {
 
 function noResultsMessage() {
 	return /*html*/ `
-		<p class="no-results">No Pokémon matched "${searchTerm}".</p>
+		<p data-id="not-found" class="no-results">No Pokémon matched "${searchTerm}".</p>
 	`;
 }
 
