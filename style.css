@@ -1,4 +1,5 @@
 @import url(reset.css);
+@import url(type-colors.css);
 
 body,
 html {
@@ -29,12 +30,28 @@ header {
 	flex-wrap: wrap;
 
 	.pokemon-card {
-		background-color: blueviolet;
+		background-color: var(--type-color);
 		padding: 1rem;
 		font-size: 1rem;
 
 		img {
 			width: 250px;
+		}
+
+		.pokemon-types {
+			display: flex;
+			gap: 0.5rem;
+			background-color: white;
+			padding: 0.5rem;
+			width: fit-content;
+			border-radius: 0.5rem;
+
+			.type-badge {
+				padding: 0.5rem;
+				background-color: var(--type-color);
+				color: var(--type-ink, #fff);
+				border-radius: 0.5rem;
+			}
 		}
 	}
 }
