@@ -152,12 +152,13 @@ function pokemonCardTemplate(pokemon) {
 	return /*html*/ `
 			<article data-id="card" class="pokemon-card type-${pokemon.types[0].type.name}">
 				<span class="pokemon-id">#${pokemon.id}</span>
+				<h2>${pokemon.name}</h2>
 				<img
 					src="${pokemon.sprites.other["official-artwork"].front_default}"
 					alt="${pokemon.name}"
 				/>
 
-				<h2>${pokemon.name}</h2>
+			
 
 				<div class="pokemon-types">
 					${renderTypes(pokemon.types)}
