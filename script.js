@@ -150,7 +150,7 @@ function renderStats(stats) {
 
 function pokemonCardTemplate(pokemon) {
 	return /*html*/ `
-			<article class="pokemon-card">
+			<article data-id="card" class="pokemon-card type-${pokemon.types[0].type.name}">
 				<span class="pokemon-id">#${pokemon.id}</span>
 				<img
 					src="${pokemon.sprites.other["official-artwork"].front_default}"
