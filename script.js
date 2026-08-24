@@ -20,9 +20,7 @@ async function init() {
 }
 
 async function loadPokemons() {
-	console.log("test1");
 	if (isLoading) return;
-	console.log("testw2");
 	setLoading(true);
 
 	ERROR_REF.textContent = "";
