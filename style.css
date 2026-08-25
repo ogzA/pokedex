@@ -11,6 +11,10 @@ body {
 	background-color: bisque;
 }
 
+body.no-scroll {
+	overflow: hidden;
+}
+
 header {
 	display: flex;
 	align-items: center;
@@ -23,16 +27,33 @@ header {
 }
 
 .pokemon-container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 20px;
-	flex-wrap: wrap;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+	gap: 16px;
 
 	.pokemon-card {
+		width: 100%;
+		border: 0;
+		cursor: pointer;
 		background-color: var(--type-color);
-		padding: 1rem;
-		font-size: 1rem;
+		border-radius: 12px;
+		padding: 14px;
+		transition:
+			transform 0.15s ease,
+			box-shadow 0.15s ease;
+
+		&:hover {
+			transform: translateY(-4px);
+			box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+		}
+
+		&:focus-visible {
+			outline: 3px solid #222;
+			outline-offset: 2px;
+		}
 
 		img {
 			width: 250px;
@@ -99,4 +120,42 @@ button {
 .load-more:disabled {
 	opacity: 0.5;
 	cursor: not-allowed;
+}
+
+/* dialog */
+.pokemon-dialog {
+	padding: 0;
+	border: 0;
+	background: transparent;
+	max-width: 100%;
+	max-height: 100%;
+	width: 100%;
+	height: 100%;
+
+	&[open] {
+		display: grid;
+		place-items: center;
+	}
+
+	&::backdrop {
+		background: rgba(0, 0, 0, 0.65);
+	}
+
+	.dialog-card {
+		background-color: var(--type-color);
+		border-radius: 16px;
+		padding: 22px;
+		width: min(92vw, 420px);
+		max-height: 90vh;
+		overflow-y: auto;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.pokemon-card {
+		transition: none;
+	}
+	.pokemon-card:hover {
+		transform: none;
+	}
 }

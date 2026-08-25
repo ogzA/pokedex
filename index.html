@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="style.css" />
-		<title>Pokedex</title>
+		<title>Pokedex - App</title>
 		<link
 			href="https://cdn.jsdelivr.net/npm/daisyui@5"
 			rel="stylesheet"
@@ -33,7 +33,7 @@
 		</header>
 
 		<main id="main" data-id="content">
-			<section id="pokemon-container" class="pokemon-container"></section>
+			<ul id="pokemon-container" class="pokemon-container"></ul>
 
 			<div id="loading" class="loading d-none" aria-live="polite">
 				<div class="spinner"></div>
@@ -43,7 +43,18 @@
 			<p id="error-message" class="error-message" aria-live="polite"></p>
 
 			<!-- load more button -->
-			<button id="load-more-btn" data-id="load-more">Load More</button>
+			<button data-id="load-more-button" id="load-more-btn">
+				Load More
+			</button>
+
+			<dialog
+				id="pokemon-dialog"
+				data-id="dialog"
+				class="pokemon-dialog"
+				aria-label="Pokémon details"
+			>
+				test
+			</dialog>
 		</main>
 
 		<footer></footer>
