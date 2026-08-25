@@ -184,10 +184,6 @@ function handleCardClick(event) {
 	const card = event.target.closest("[data-id='card']");
 	if (!card) return;
 
-	console.log("index:", card.dataset.index, "→", Number(card.dataset.index));
-	console.log("liste uzunluğu:", getVisiblePokemons().length);
-	console.log(card);
-
 	currentIndex = Number(card.dataset.index);
 	renderDialog();
 	POKEMON_DIALOG_REF.showModal();
@@ -206,7 +202,6 @@ function moveDialog(step) {
 	const list = getVisiblePokemons();
 	currentIndex = (currentIndex + step + list.length) % list.length;
 
-	console.log(`currentIndex from moveDialog: ${currentIndex}`);
 	renderDialog();
 }
 
