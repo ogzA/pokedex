@@ -156,7 +156,7 @@ function renderTypes(types) {
 		.map((typeInfo) => {
 			return /*html*/ `
 				<span class="type-badge type-${typeInfo.type.name}">
-					${typeInfo.type.name}
+					${capitalize(typeInfo.type.name)}
 				</span>
 			`;
 		})
@@ -168,7 +168,7 @@ function renderStats(stats) {
 		.map((statInfo) => {
 			return /*html*/ `
 				<li>
-					<span class="stat-name">${statInfo.stat.name}</span>
+					<span class="stat-name">${capitalize(statInfo.stat.name)}:</span>
 					<span class="stat-value">${statInfo.base_stat}</span>
 				</li>
 			`;

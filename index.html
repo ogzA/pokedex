@@ -3,6 +3,12 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&family=Valley+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+			rel="stylesheet"
+		/>
 		<link rel="stylesheet" href="style.css" />
 		<title>Pokedex - App</title>
 
@@ -32,7 +38,11 @@
 							aria-live="polite"
 						></p>
 					</div>
-					<button id="search-btn" data-id="search-button">
+					<button
+						id="search-btn"
+						data-id="search-button"
+						class="search-btn"
+					>
 						Search
 					</button>
 				</div>
@@ -47,17 +57,25 @@
 				></ul>
 			</section>
 
-			<div id="loading" class="loading d-none" aria-live="polite">
-				<div class="spinner"></div>
-				<p>Loading Pokémon...</p>
-			</div>
+			<section class="helpers-section">
+				<div class="container">
+					<div id="loading" class="loading d-none" aria-live="polite">
+						<div class="spinner"></div>
+						<p>Loading Pokémon...</p>
+					</div>
 
-			<p id="error-message" class="error-message" aria-live="polite"></p>
+					<p
+						id="error-message"
+						class="error-message"
+						aria-live="polite"
+					></p>
 
-			<!-- load more button -->
-			<button data-id="load-more-button" id="load-more-btn">
-				Load More
-			</button>
+					<!-- load more button -->
+					<button data-id="load-more-button" id="load-more-btn">
+						Load More
+					</button>
+				</div>
+			</section>
 
 			<dialog
 				id="pokemon-dialog"
@@ -67,6 +85,10 @@
 			></dialog>
 		</main>
 
-		<footer></footer>
+		<footer>
+			<div class="container">
+				<h2>Coded by Oğuz Akankan</h2>
+			</div>
+		</footer>
 	</body>
 </html>
