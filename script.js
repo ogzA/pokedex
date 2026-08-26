@@ -97,18 +97,6 @@ function getVisiblePokemons() {
 	return allPokemons.filter((pokemon) => pokemon.name.includes(searchTerm));
 }
 
-function pokemonLoadErrorMessage() {
-	return /*html*/ `
-		<p class="error">Pokémon could not be loaded. Please try again later.</p>
-	`;
-}
-
-function noResultsMessage() {
-	return /*html*/ `
-		<p data-id="not-found" class="no-results">No Pokémon matched "${searchTerm}".</p>
-	`;
-}
-
 function isSearchActive() {
 	return searchTerm.length >= MIN_SEARCH_LENGTH;
 }
@@ -176,32 +164,6 @@ function renderStats(stats) {
 		.join("");
 }
 
-function pokemonCardTemplate(pokemon, index) {
-	return /*html*/ `
-		<li>
-			<button
-				data-id="card"
-				data-index="${index}"
-				class="pokemon-card type-${pokemon.types[0].type.name}"
-				aria-label="Show details for ${capitalize(pokemon.name)}"
-			>
-				<span class="pokemon-id">#${formatId(pokemon.id)}</span>
-				<img data-id="card-image" src="${getArtwork(pokemon)}" alt="${pokemon.name}" />
-				<span class="pokemon-name">${capitalize(pokemon.name)}</span>
-				<span class="pokemon-types">${renderTypes(pokemon.types)}</span>
-			</button>
-		</li>
-		`;
-}
-
-function showLoadError() {
-	if (allPokemons.length === 0) {
-		POKEMON_CONTAINER_REF.innerHTML = pokemonLoadErrorMessage();
-		return;
-	}
-	ERROR_REF.textContent = "Could not load more Pokémon. Please try again.";
-}
-
 function handleCardClick(event) {
 	const card = event.target.closest("[data-id='card']");
 	if (!card) return;
@@ -235,47 +197,4 @@ function renderDialog() {
 
 function unlockScroll() {
 	document.body.classList.remove("no-scroll");
-}
-
-function dialogTemplate(pokemon) {
-	return /*html*/ `
-		<article data-id="overlay-pokemon-name" class="dialog-card type-${pokemon.types[0].type.name}">
-			<header class="dialog-header">
-				<span>#${formatId(pokemon.id)}</span>
-				<h2>${capitalize(pokemon.name)}</h2>
-				<button data-id="close-dialog-button" aria-label="Close details">&times;</button>
-			</header>
-
-			<img data-id="dialog-image" src="${pokemon.sprites.other["official-artwork"].front_default}"
-				alt="${capitalize(pokemon.name)}" />
-
-			<div class="dialog-types">${renderTypes(pokemon.types)}</div>
-			<ul class="pokemon-stats">${renderStats(pokemon.stats)}</ul>
-
-			${dialogNavTemplate()}
-		</article>
-	`;
-}
-
-function dialogNavTemplate() {
-	return /*html*/ `
-		<nav class="dialog-nav">
-			<button data-id="prev-button" aria-label="Previous Pokémon">&lsaquo;</button>
-			<button data-id="next-button" aria-label="Next Pokémon">&rsaquo;</button>
-		</nav>
-	`;
-}
-
-// Helpers
-function capitalize(text) {
-	return text.charAt(0).toUpperCase() + text.slice(1);
-}
-
-function formatId(id) {
-	return String(id).padStart(4, "0");
-}
-
-function getArtwork(pokemon) {
-	const art = pokemon.sprites.other["official-artwork"].front_default;
-	return art;
 }
