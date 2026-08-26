@@ -73,6 +73,7 @@ header {
 			input {
 				padding: 0.5rem;
 				height: 100%;
+				width: 100%;
 
 				@media screen and (width <= 768px) {
 					width: 100%;
@@ -130,7 +131,6 @@ header {
 
 		.pokemon-name {
 			font-size: 2rem;
-			font-size: bold;
 		}
 
 		&:hover {
