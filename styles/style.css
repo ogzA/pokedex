@@ -1,3 +1,4 @@
+@import url(fonts.css);
 @import url(reset.css);
 @import url(type-colors.css);
 
@@ -29,6 +30,7 @@ button {
 
 h1 {
 	color: rebeccapurple;
+	font-weight: 900;
 }
 
 .container {
@@ -152,6 +154,7 @@ header {
 			padding: 0.5rem;
 			width: fit-content;
 			border-radius: 0.5rem;
+			margin-top: 2rem;
 
 			.type-badge {
 				padding: 0.5rem;
@@ -296,15 +299,11 @@ header {
 }
 
 .helpers-section {
+	padding-bottom: 4rem;
 	.container {
 		display: flex;
 		justify-content: center;
+		flex-direction: column;
+		width: fit-content;
 	}
-}
-
-footer {
-	background-color: rebeccapurple;
-	color: white;
-	display: flex;
-	justify-content: center;
 }
