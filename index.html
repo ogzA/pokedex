@@ -10,25 +10,42 @@
 	</head>
 	<body onload="init()">
 		<header>
-			<a href="#">
-				<img src="./assets/logo.png" alt="Logo" height="75" />
-			</a>
+			<div class="container">
+				<a class="logo-title" href="/">
+					<img src="./assets/logo.png" alt="Logo" height="75" />
+					<h1>Pokedex</h1>
+				</a>
 
-			<div class="search-container">
-				<input
-					id="search-input"
-					class="input search-input"
-					data-id="search-input"
-					type="search"
-					placeholder="Search Pokémon"
-					autocomplete="off"
-				/>
-				<p id="search-hint" class="search-hint" aria-live="polite"></p>
+				<div class="search-container">
+					<div class="input-container">
+						<input
+							id="search-input"
+							class="input search-input"
+							data-id="search-input"
+							type="search"
+							placeholder="Search Pokémon"
+							autocomplete="off"
+						/>
+						<p
+							id="search-hint"
+							class="search-hint"
+							aria-live="polite"
+						></p>
+					</div>
+					<button id="search-btn" data-id="search-button">
+						Search
+					</button>
+				</div>
 			</div>
 		</header>
 
 		<main id="main" data-id="content">
-			<ul id="pokemon-container" class="pokemon-container"></ul>
+			<section class="pokemon-section">
+				<ul
+					id="pokemon-container"
+					class="pokemon-container container"
+				></ul>
+			</section>
 
 			<div id="loading" class="loading d-none" aria-live="polite">
 				<div class="spinner"></div>

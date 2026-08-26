@@ -3,6 +3,7 @@ const MAIN_PKM_URL = "https://pokeapi.co/api/v2/pokemon/";
 const POKEMON_CONTAINER_REF = document.getElementById("pokemon-container");
 const SEARCH_INPUT_REF = document.getElementById("search-input");
 const SEARCH_HINT_REF = document.getElementById("search-hint");
+const SEARCH_BUTTON_REF = document.getElementById("search-btn");
 const LOAD_MORE_BTN_REF = document.getElementById("load-more-btn");
 const LOADING_REF = document.getElementById("loading");
 const ERROR_REF = document.getElementById("error-message");
@@ -16,7 +17,9 @@ let hasMore = true;
 let currentIndex = 0;
 
 async function init() {
-	SEARCH_INPUT_REF.addEventListener("input", handleSearch);
+	SEARCH_BUTTON_REF.addEventListener("click", handleSearch);
+	SEARCH_INPUT_REF.addEventListener("keydown", handleSearchKey);
+	SEARCH_INPUT_REF.addEventListener("input", handleSearchInput);
 	LOAD_MORE_BTN_REF.addEventListener("click", loadPokemons);
 	POKEMON_CONTAINER_REF.addEventListener("click", handleCardClick);
 	POKEMON_DIALOG_REF.addEventListener("click", handleDialogClick);
@@ -53,15 +56,34 @@ function renderLoadingState() {
 	LOAD_MORE_BTN_REF.classList.toggle("d-none", !hasMore);
 }
 
-function handleSearch(event) {
-	searchTerm = event.target.value.trim().toLowerCase();
-	renderSearchHint();
+function handleSearch() {
+	searchTerm = SEARCH_INPUT_REF.value.trim().toLowerCase();
 	render();
 }
 
+function handleSearchKey(event) {
+	if (event.key === "Enter") handleSearch();
+}
+
+function handleSearchInput() {
+	renderSearchHint();
+	updateSearchButton();
+
+	if (SEARCH_INPUT_REF.value.trim() === "" && searchTerm !== "") {
+		searchTerm = "";
+		render();
+	}
+}
+
+function updateSearchButton() {
+	const value = SEARCH_INPUT_REF.value.trim();
+	SEARCH_BUTTON_REF.disabled =
+		value.length > 0 && value.length < MIN_SEARCH_LENGTH;
+}
+
 function renderSearchHint() {
-	const isTooShort =
-		searchTerm.length > 0 && searchTerm.length < MIN_SEARCH_LENGTH;
+	const length = SEARCH_INPUT_REF.value.trim().length;
+	const isTooShort = length > 0 && length < MIN_SEARCH_LENGTH;
 	SEARCH_HINT_REF.textContent = isTooShort
 		? "Type at least 3 characters"
 		: "";
